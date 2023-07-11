@@ -1,4 +1,4 @@
-@extends('layouts.main', ['class' => 'off-canvas-sidebar', 'activePage' => 'login', 'title' => __('Material Dashboard')])
+@extends('layouts.main', ['class' => 'off-canvas-sidebar', 'activePage' => 'login', 'title' => __('Material ')])
 
 @section('content')
 <div class="container" style="height: auto;">

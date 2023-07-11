@@ -2,8 +2,10 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
   <div class="container">
     <div class="navbar-wrapper">
-      <a class="navbar-brand" href="{{ route('home') }}">{{ $title }}</a>
-    </div>
+        <a class="navbar-brand" href="#">
+          <img src="{{ asset('material/img/validablanco.png') }}" alt="" height="50">
+        </a>
+      </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
       <span class="sr-only">Toggle navigation</span>
       <span class="navbar-toggler-icon icon-bar"></span>
@@ -13,13 +15,13 @@
     <div class="collapse navbar-collapse justify-content-end">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a href="{{ route('home') }}" class="nav-link">
-            <i class="material-icons">dashboard</i> {{ __('Dashboard') }}
-          </a>
+            <a href="https://validacarga.net/" class="nav-link">
+                <i class="material-icons">web</i> {{ __('Sitio') }}
+              </a>
         </li>
         <li class="nav-item{{ $activePage == 'register' ? ' active' : '' }}">
           <a href="{{ route('register') }}" class="nav-link">
-            <i class="material-icons">person_add</i> {{ __('Register') }}
+            <i class="material-icons">person_add</i> {{ __('Registro') }}
           </a>
         </li>
         <li class="nav-item{{ $activePage == 'login' ? ' active' : '' }}">
@@ -28,8 +30,8 @@
           </a>
         </li>
         <li class="nav-item ">
-          <a href="#" class="nav-link">
-            <i class="material-icons">face</i> {{ __('Profile') }}
+          <a href="https://www.validacarga.com/Default.aspx" class="nav-link">
+            <i class="material-icons">computer</i> {{ __('Portal') }}
           </a>
         </li>
       </ul>
