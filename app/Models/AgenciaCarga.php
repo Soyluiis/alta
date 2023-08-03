@@ -45,6 +45,7 @@ class AgenciaCarga extends Model
         'contacto_cuentas',
         'email_cuentas',
         'telefono_cuentas',
+        'enviado',
     ];
 
     // Puedes agregar relaciones o métodos adicionales aquí si es necesario

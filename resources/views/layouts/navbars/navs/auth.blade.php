@@ -58,7 +58,10 @@
             <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
             <a class="dropdown-item" href="#">{{ __('Settings') }}</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Log out') }}</a>
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+            style="text-align: center; text-transform: uppercase; text-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);">
+            {{ __('Salir') }}
+         </a>
           </div>
         </li>
       </ul>

@@ -15,8 +15,13 @@
    <div class="alert alert-success" role="success">
        {{session('success')}}
    </div>
-
    @endif
+   @if (session('error'))
+   <div class="alert alert-danger" role="success">
+       {{session('error')}}
+   </div>
+   @endif
+
   <div class="card-body">
     <form action="#" method="POST">
         @csrf
@@ -42,15 +47,19 @@
                         <td>{{ $vista->representante_legal }}</td>
                         <td>{{ $vista->telefono }}</td>
                         <td class= "text-right">
-                            <button class="btn-sm btn-info" type="button">
-                                <i class="fas fa-fw fa-caret-down"></i>
-                            </button>
-                            <button class="btn-sm btn-warning" type="button">
-                                <i class="fas fa-fw fa-pen"></i>
-                            </button>
-                            <button class="btn-sm btn-danger" type="button">
-                                <i class="fas fa-fw fa-eraser"></i>
-                            </button>
+
+                            <a href="{{route('show',$vista->id)}}" class="btn btn-info"> <i class="fas fa-fw fa-eye"></i></a>
+                            @if(!$vista->enviado)
+                            
+                            <a href="{{route('edit',$vista->id)}}" class="btn btn-warning"> <i class="fas fa-fw fa-pen"></i></a>
+                            <form action="{{ route('cargas.destroy', $vista->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')" title="Eliminar"><i class="fas fa-fw fa-eraser"></i></button>
+                            </form>
+                            @endif
+
+
                         </td>
                     </tr>
                     @endforeach

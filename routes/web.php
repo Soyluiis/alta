@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckRole;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,19 +27,21 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-
+Route::middleware(['auth', CheckRole::class])->group(function () {
 Route::get('/users/create', [App\Http\Controllers\UserController::class, 'create'])->name('users');
 Route::post('/users', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
-
 Route::get('/users', [App\Http\Controllers\UserController::class, 'indes'])->name('indes');
-
+Route::post('users/{userId}/assign-role', [UserController::class, 'assignRole'])->name('users.assign-role');
+});
 
 Route::get('/carga', [App\Http\Controllers\AgenciaCargaController::class, 'create'])->name('carga');
 Route::post('/cargas', [App\Http\Controllers\AgenciaCargaController::class, 'store'])->name('cargas.store');
 Route::get('/cargas', [App\Http\Controllers\AgenciaCargaController::class, 'index'])->name('vista');
+Route::get('/cargas/{ver}', [App\Http\Controllers\AgenciaCargaController::class, 'show'])->name('show');
+Route::get('/cargas/{ver}/edit', [App\Http\Controllers\AgenciaCargaController::class, 'edit'])->name('edit');
+Route::put('/cargas/{ver}', [App\Http\Controllers\AgenciaCargaController::class, 'update'])->name('cargas.update');
+Route::delete('/cargas/{ver}', [App\Http\Controllers\AgenciaCargaController::class, 'destroy'])->name('cargas.destroy');
 
 
-//Route::get('/agencia_carga/create', [AgenciaCargaController::class, 'create'])->name('agencia_carga.create');
-//Route::post('/agencia_carga', [AgenciaCargaController::class, 'store'])->name('agencia_carga.store');
 
 

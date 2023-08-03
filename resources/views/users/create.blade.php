@@ -35,6 +35,15 @@
             <input type="password" name="password" id="password" class="form-control" required minlength="8">
             <!-- Agregamos el atributo "minlength" para especificar una contraseña de mínimo 8 caracteres -->
         </div>
+        <div class="form-group">
+            <label for="role">Rol:</label>
+            <select name="role" id="role" class="form-control" required>
+                <option value="" selected disabled>Selecciona un rol</option>
+                @foreach($roles as $role)
+                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
         <button type="submit" class="btn btn-danger">Guardar</button>
     </form>

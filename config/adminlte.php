@@ -1,5 +1,6 @@
 <?php
 
+
 return [
 
     /*
@@ -318,36 +319,36 @@ return [
         [
             'text' => 'Registros',
             'route'  => 'vista',
-            'icon' => 'fas fa-fw fa-address-card'
+            'icon' => 'fas fa-fw fa-address-card',
+            'can' => 'admin',
 
         ],
-        [
-            'text' => 'Usuarios',
-            'url'  => '#',
-            'icon' => 'fas fa-fw fa-users'
 
-        ],
-        [
+
+            [
+
             'text' => 'Registrar Agentes',
             'route'  => 'users',
-            'icon' => 'fas fa-fw fa-briefcase'
+            'icon' => 'fas fa-fw fa-briefcase',
+            'can' => 'admin',
 
-        ],
-        [
-            'text' => 'Lista de Agentes',
-            'route'  => 'indes',
-            'icon' => 'fas fa-fw fa-list'
+            ],
 
-        ],
-        [
-            'text' => 'Eliminar',
-            'url'  => '#',
-            'icon' => 'fas fa-fw fa-trash'
-
-        ],
+            [
+                'text' => 'Lista de Agentes',
+                'route'  => 'indes',
+                'icon' => 'fas fa-fw fa-list',
+                'can' => 'admin',
 
 
-        ['header' => 'Configuración de cuenta'],
+            ],
+
+
+
+
+
+
+        /* ['header' => 'Configuración de cuenta'],
         [
             'text' => 'Mi Perfil',
             'url'  => 'admin/settings',
@@ -358,7 +359,7 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
-
+ */
 
     ],
 

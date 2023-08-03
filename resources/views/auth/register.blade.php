@@ -21,6 +21,7 @@
                       <i class="material-icons">face</i>
                   </span>
                 </div>
+                
                 <input type="text" name="name" class="form-control" placeholder="{{ __('Nombre...') }}" value="{{ old('name') }}" required>
               </div>
               @if ($errors->has('name'))

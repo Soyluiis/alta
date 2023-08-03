@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\AgenciaCarga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 
 class AgenciaCargaController extends Controller
 {
@@ -20,52 +22,159 @@ class AgenciaCargaController extends Controller
     }
 
     public function store(Request $request)
-{
-    // Verificar si se presionó el botón "Enviar" (botón con name="enviar")
-    if ($request->has('enviar')) {
-        $enviado = true;
-    } else {
-        $enviado = false;
+    {
+        // Validar los datos enviados por el formulario
+        $validator = Validator::make($request->all(), [
+            'nombre_fiscal' => 'nullable|string',
+            'rfc' => 'nullable|string',
+            'no_caat' => 'nullable|string',
+            'nombre_comercial' => 'nullable|string',
+            'calle' => 'nullable|string',
+            'numero_exterior' => 'nullable|string',
+            'numero_interior' => 'nullable|string',
+            'colonia' => 'nullable|string',
+            'codigo_postal' => 'nullable|string',
+            'delegacion' => 'nullable|string',
+            'estado' => 'nullable|string',
+            'banco' => 'nullable|string',
+            'cuenta' => 'nullable|string',
+            'metodo_pago' => 'nullable|string',
+            'regimen_fiscal' => 'nullable|string',
+            'forma_pago' => 'nullable|string',
+            'uso_cfdi' => 'nullable|string',
+            'tipo_alta' => 'nullable|string',
+            'metodo_transmision' => 'nullable|string',
+            'correo_acceso' => 'nullable|email',
+            'vigencia_caat_inicio' => 'nullable|date',
+            'vigencia_caat_vencimiento' => 'nullable|date',
+            'dato_vucem_usuario' => 'nullable|string',
+            'dato_vucem_contrasenia' => 'nullable|string',
+            'representante_legal' => 'nullable|string',
+            'email' => 'nullable|email',
+            'telefono' => 'nullable|string',
+            'contacto_cuentas' => 'nullable|string',
+            'email_cuentas' => 'nullable|email',
+            'telefono_cuentas' => 'nullable|string',
+            'uso_exclusivo_tarifa' => 'nullable|string',
+            'uso_exclusivo_referencia' => 'nullable|string',
+            'uso_exclusivo_id' => 'nullable|string',
+            'ciudad'=> 'nullable|string',
+
+        ]);
+
+        // Si la validación falla, mostrar errores y volver al formulario
+        if ($validator->fails()) {
+            return redirect()->route('vista')->withErrors($validator);
+        }
+
+        // Si el formulario se envió, marcar como enviado y guardar los datos
+        if ($request->has('enviar')) {
+            AgenciaCarga::create(array_merge($request->all(), ['enviado' => true]));
+            return redirect()->route('vista')->with('success', 'Formulario Enviado Exitosamente.');
+        }
+
+        // Si el botón guardar se presionó, guardar los datos sin marcar como enviado
+        AgenciaCarga::create($request->all());
+
+        return redirect()->route('vista')->with('success', 'Registro Guardado Correctamente');
     }
 
-    // Crear el registro y establecer el valor de "enviado"
-    AgenciaCarga::create([
-        'nombre_fiscal' => $request->input('nombre_fiscal'),
-        'rfc' => $request->input('rfc'),
-        'no_caat' => $request->input('no_caat'),
-        'nombre_comercial' => $request->input('nombre_comercial'),
-        'calle' => $request->input('calle'),
-        'numero_exterior' => $request->input('numero_exterior'),
-        'numero_interior' => $request->input('numero_interior'),
-        'colonia' => $request->input('colonia'),
-        'codigo_postal' => $request->input('codigo_postal'),
-        'delegacion' => $request->input('delegacion'),
-        'estado' => $request->input('estado'),
-        'banco' => $request->input('banco'),
-        'cuenta' => $request->input('cuenta'),
-        'metodo_pago' => $request->input('metodo_pago'),
-        'regimen_fiscal' => $request->input('regimen_fiscal'),
-        'forma_pago' => $request->input('forma_pago'),
-        'uso_cfdi' => $request->input('uso_cfdi'),
-        'tipo_alta' => $request->input('tipo_alta'),
-        'metodo_transmision' => $request->input('metodo_transmision'),
-        'correo_acceso' => $request->input('correo_acceso'),
-        'vigencia_caat_inicio' => $request->input('vigencia_caat_inicio'),
-        'vigencia_caat_vencimiento' => $request->input('vigencia_caat_vencimiento'),
-        'dato_vucem_usuario' => $request->input('dato_vucem_usuario'),
-        'dato_vucem_contrasenia' => $request->input('dato_vucem_contrasenia'),
-        'representante_legal' => $request->input('representante_legal'),
-        'email' => $request->input('email'),
-        'telefono' => $request->input('telefono'),
-        'contacto_cuentas' => $request->input('contacto_cuentas'),
-        'email_cuentas' => $request->input('email_cuentas'),
-        'telefono_cuentas' => $request->input('telefono_cuentas'),
-        'uso_exclusivo_tarifa' => $request->input('uso_exclusivo_tarifa'),
-        'uso_exclusivo_referencia' => $request->input('uso_exclusivo_referencia'),
-        'uso_exclusivo_id' => $request->input('uso_exclusivo_id'),
-        'enviado' => $enviado,
-    ]);
 
-    return redirect()->route('vista')->with('success','Registro Guardado Correctamente');
+public function show($id)
+{
+    $ver=AgenciaCarga::findOrFail($id);
+    return view ('agencia.show',compact('ver'));
 }
+
+public function edit($id)
+{
+    $ver=AgenciaCarga::findOrFail($id);
+    return view ('agencia.edit',compact('ver'));
+
+}
+
+public function update(Request $request, $id)
+{
+    $validator = Validator::make($request->all(), [
+        'nombre_fiscal' => 'nullable|string',
+        'rfc' => 'nullable|string',
+        'no_caat' => 'nullable|string',
+        'nombre_comercial' => 'nullable|string',
+        'calle' => 'nullable|string',
+        'numero_exterior' => 'nullable|string',
+        'numero_interior' => 'nullable|string',
+        'colonia' => 'nullable|string',
+        'codigo_postal' => 'nullable|string',
+        'delegacion' => 'nullable|string',
+        'estado' => 'nullable|string',
+        'banco' => 'nullable|string',
+        'cuenta' => 'nullable|string',
+        'metodo_pago' => 'nullable|string',
+        'regimen_fiscal' => 'nullable|string',
+        'forma_pago' => 'nullable|string',
+        'uso_cfdi' => 'nullable|string',
+        'tipo_alta' => 'nullable|string',
+        'metodo_transmision' => 'nullable|string',
+        'correo_acceso' => 'nullable|email',
+        'vigencia_caat_inicio' => 'nullable|date',
+        'vigencia_caat_vencimiento' => 'nullable|date',
+        'dato_vucem_usuario' => 'nullable|string',
+        'dato_vucem_contrasenia' => 'nullable|string',
+        'representante_legal' => 'nullable|string',
+        'email' => 'nullable|email',
+        'telefono' => 'nullable|string',
+        'contacto_cuentas' => 'nullable|string',
+        'email_cuentas' => 'nullable|email',
+        'telefono_cuentas' => 'nullable|string',
+        'uso_exclusivo_tarifa' => 'nullable|string',
+        'uso_exclusivo_referencia' => 'nullable|string',
+        'uso_exclusivo_id' => 'nullable|string',
+        'ciudad'=> 'nullable|string',
+    ]);
+    // Verificar si la validación falló
+    if ($validator->fails()) {
+        // Redirigir de vuelta al formulario con los errores de validación
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    // Encontrar el registro de AgenciaCarga por su ID
+    $ver = AgenciaCarga::findOrFail($id);
+
+    // Verificar el valor del campo "enviado"
+    if ($ver->enviado) {
+        // Si el campo "enviado" es true, redirigir sin realizar la actualización
+        return redirect()->route('vista')->with('error', 'No se puede editar el formulario, ya ha sido enviado.');
+    }
+
+    // Actualizar los datos del registro con los datos recibidos del formulario
+    $ver->update($request->all());
+
+    // Si el formulario se envió, marcar como enviado y guardar los datos
+    if ($request->has('enviar')) {
+        $ver->update(array_merge($request->all(), ['enviado' => true]));
+        return redirect()->route('vista')->with('success', 'Formulario Enviado Exitosamente.');
+    }
+
+    // Redirigir de vuelta al formulario con un mensaje de éxito
+    return redirect()->back()->with('success', 'Formulario actualiado Exitosamente.');
+}
+
+public function destroy($id)
+{
+    // Encontrar el registro de AgenciaCarga por su ID
+    $registro = AgenciaCarga::findOrFail($id);
+
+    // Verificar si el formulario ya ha sido enviado
+    if ($registro->enviado) {
+        return redirect()->route('vista')->with('error', 'No se puede eliminar el registro, el formulario ya ha sido enviado.');
+    }
+
+    // Eliminar el registro
+    $registro->delete();
+
+    // Redirigir de vuelta al listado de registros con un mensaje de éxito
+    return redirect()->route('vista')->with('', 'Registro eliminado correctamente.');
+}
+
+
 }

@@ -15,7 +15,7 @@ class AddContactoCuentasEmailTelefonoToAgenciaCargaTable extends Migration
     {
         Schema::table('agencia_carga', function (Blueprint $table) {
             $table->string('contacto_cuentas')->nullable();
-            $table->string('telefono_cuentas');
+            $table->string('telefono_cuentas')->nullable();
             $table->string('email_cuentas')->nullable();
 
         });
