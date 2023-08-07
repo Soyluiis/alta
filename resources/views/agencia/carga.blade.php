@@ -191,9 +191,11 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                                <label for="tipo_alta">Tipo de Alta:</label><br>
-                                <input type="checkbox" name="tipo_alta[]" value="Aero"> Aero<br>
-                                <input type="checkbox" name="tipo_alta[]" value="Maritimo"> Marítimo<br>
+                                <label for="tipo_alta">Tipo de Alta:</label>
+                                <select name="tipo_alta" id="tipo_alta" class="form-control">
+                                    <option value="Aero">Aero</option>
+                                    <option value="Maritimo">Marítimo</option>
+                                </select>
                             </div>
                           </div>
                           <div class="col">
@@ -252,7 +254,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label for="dato_vucem_contrasenia">Contraseña Web Services:</label>
-                              <input type="password" name="dato_vucem_contrasenia" id="dato_vucem_contrasenia" class="form-control" >
+                              <input type="text" name="dato_vucem_contrasenia" id="dato_vucem_contrasenia" class="form-control" >
                             </div>
                           </div>
                         </div>
@@ -340,11 +342,16 @@
 
     </div>
     <script>
-        // Función para verificar si todos los campos están llenos
+        // Función para verificar si todos los campos están llenos, excepto los campos excluidos
         function verificarCamposLlenos() {
             const campos = document.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="password"]');
             for (const campo of campos) {
-                if (campo.value.trim() === '') {
+                if (
+                    campo.value.trim() === '' &&
+                    campo !== document.getElementById('uso_exclusivo_tarifa') &&
+                    campo !== document.getElementById('uso_exclusivo_referencia') &&
+                    campo !== document.getElementById('uso_exclusivo_id')
+                ) {
                     return false;
                 }
             }
@@ -359,5 +366,14 @@
                 btnEnviar.disabled = !verificarCamposLlenos();
             });
         }
+
+        // Omitir la validación de campos exclusivos al enviar el formulario
+        const formulario = document.getElementById('formulario'); // Cambia 'formulario' al ID correcto de tu formulario
+        formulario.addEventListener('submit', function (event) {
+            if (!verificarCamposLlenos()) {
+                event.preventDefault(); // Evitar el envío del formulario si no se cumplen las validaciones
+                // Puedes agregar aquí algún mensaje o lógica adicional si lo deseas
+            }
+        });
     </script>
 @stop

@@ -162,15 +162,15 @@ public function update(Request $request, $id)
 public function destroy($id)
 {
     // Encontrar el registro de AgenciaCarga por su ID
-    $registro = AgenciaCarga::findOrFail($id);
+    $ver= AgenciaCarga::findOrFail($id);
 
     // Verificar si el formulario ya ha sido enviado
-    if ($registro->enviado) {
+    if ($ver->enviado) {
         return redirect()->route('vista')->with('error', 'No se puede eliminar el registro, el formulario ya ha sido enviado.');
     }
 
     // Eliminar el registro
-    $registro->delete();
+    $ver->delete();
 
     // Redirigir de vuelta al listado de registros con un mensaje de éxito
     return redirect()->route('vista')->with('', 'Registro eliminado correctamente.');

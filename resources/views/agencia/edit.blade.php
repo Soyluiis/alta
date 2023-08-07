@@ -106,6 +106,11 @@
                                         <input type="text" name="estado" id="estado" class="form-control" value="{{$ver->estado}}">
                                     </div>
                                 </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="calle">Ciudad:</label>
+                                <input type="text" name="ciudad" id="ciudad" class="form-control" value="{{$ver->ciudad}}" >
                             </div>
                         </div>
 
@@ -172,15 +177,23 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="tipo_alta">Tipo de Alta:</label>
-                                                    <input type="text" name="tipo_alta" id="tipo_alta" class="form-control" value="{{$ver->tipo_alta}}">
+                                                    <select name="tipo_alta" id="tipo_alta" class="form-control">
+                                                        <option value="Aero" {{ $ver->tipo_alta === 'Aero' ? 'selected' : '' }}>Aero</option>
+                                                        <option value="Maritimo" {{ $ver->tipo_alta === 'Maritimo' ? 'selected' : '' }}>Marítimo</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="metodo_transmision">Método de Transmisión:</label>
-                                                    <input type="text" name="metodo_transmision" id="metodo_transmision" class="form-control" value="{{$ver->metodo_transmision}}">
+                                                    <select name="metodo_transmision" id="metodo_transmision" class="form-control">
+                                                        <option value="Portal" {{ $ver->metodo_transmision === 'Portal' ? 'selected' : '' }}>Portal</option>
+                                                        <option value="FTP" {{ $ver->metodo_transmision === 'FTP' ? 'selected' : '' }}>FTP</option>
+                                                        <option value="UTA" {{ $ver->metodo_transmision === 'UTA' ? 'selected' : '' }}>UTA</option>
+                                                        <option value="AGSIVA" {{ $ver->metodo_transmision === 'AGSIVA' ? 'selected' : '' }}>AGSIVA</option>
+                                                    </select>
                                                 </div>
-                                            </div>
+                                              </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
@@ -315,11 +328,17 @@
 
     </div>
     <script>
-        // Función para verificar si todos los campos están llenos
+        // Función para verificar si todos los campos están llenos, excepto los campos excluidos
         function verificarCamposLlenos() {
             const campos = document.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="password"]');
             for (const campo of campos) {
-                if (campo.value.trim() === '') {
+                if (
+                    campo.value.trim() === '' &&
+                    campo !== document.getElementById('uso_exclusivo_tarifa') &&
+                    campo !== document.getElementById('uso_exclusivo_referencia') &&
+                    campo !== document.getElementById('uso_exclusivo_id') &&
+                    !campo.classList.contains('campo-no-obligatorio')
+                ) {
                     return false;
                 }
             }
@@ -332,7 +351,7 @@
             btnEnviar.disabled = !verificarCamposLlenos();
         }
 
-        // Ejecutar la función de verificación cada 5 segundos (5000 milisegundos)
+        // Ejecutar la función de verificación cada 2 segundos (2000 milisegundos)
         setInterval(verificarYHabilitarBoton, 2000);
 
         // Agregar evento "input" a todos los campos para verificar cuando el usuario ingresa información
@@ -341,11 +360,15 @@
             campo.addEventListener('input', function () {
                 verificarYHabilitarBoton(); // Llamar a la función de verificación al ingresar información en un campo
             });
-            // Agregar evento "click" al botón de actualizar para habilitar el botón de enviar
-    const btnActualizar = document.getElementById('btnActualizar');
-    btnActualizar.addEventListener('click', function () {
-        verificarYHabilitarBoton();
-    });
         }
+
+        // Omitir la validación de campos exclusivos al enviar el formulario
+        const formulario = document.getElementById('formulario'); // Cambia 'formulario' al ID correcto de tu formulario
+        formulario.addEventListener('submit', function (event) {
+            if (!verificarCamposLlenos()) {
+                event.preventDefault(); // Evitar el envío del formulario si no se cumplen las validaciones
+                // Puedes agregar aquí algún mensaje o lógica adicional si lo deseas
+            }
+        });
     </script>
 @stop

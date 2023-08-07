@@ -50,8 +50,8 @@
 
                             <a href="{{route('show',$vista->id)}}" class="btn btn-info"> <i class="fas fa-fw fa-eye"></i></a>
                             @if(!$vista->enviado)
-                            
                             <a href="{{route('edit',$vista->id)}}" class="btn btn-warning"> <i class="fas fa-fw fa-pen"></i></a>
+                            
                             <form action="{{ route('cargas.destroy', $vista->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
