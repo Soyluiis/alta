@@ -20,6 +20,18 @@
               </a>
         </li>
 
+        <li class="nav-item">
+            <a href="{{ route('ingresar-folio') }}" class="nav-link">
+                <i class="material-icons">account_circle</i> {{ __('Ingreso con Folio') }}
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('register') }}" class="nav-link">
+                <i class="material-icons">user</i> {{ __('Ingreso con Folio') }}
+            </a>
+        </li>
+
 
         <li class="nav-item ">
           <a href="https://www.validacarga.com/Default.aspx" class="nav-link">

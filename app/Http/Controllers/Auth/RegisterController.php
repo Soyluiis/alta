@@ -4,44 +4,52 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Role;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/admin';
+    protected $redirectTo = '/home';
 
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
+
+    // Agregar esta función para obtener roles disponibles
+    public function roles()
+    {
+        return Role::pluck('name', 'id');
+    }
+
+    // Sobreescribir el método showRegistrationForm
+    public function showRegistrationForm()
+    {
+        $roles = $this->roles();
+        return view('auth.register', compact('roles'));
+    }
+
+    // Sobreescribir el método create para guardar el rol seleccionado
+    protected function create(array $data)
+    {
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+        // Asignar el rol seleccionado al usuario
+        $user->roles()->sync([$data['role']]);
+
+        return $user;
+    }
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -53,7 +61,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => [ 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -65,11 +73,13 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     public function store(Request $request)
-    {
-        return User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' =>($request->input('password')),
-        ]);
-    }
+{
+    return User::create([
+        'name' => $request->input('folio'), // Usamos el folio como nombre
+        'folio' => $request->input('folio'), // Agregamos el folio
+        'password' => Hash::make($request->input('folio')), // Usamos el folio como contraseña
+        'role' => 'user', // Asignamos automáticamente el rol "user"
+    ]);
+
+}
 }

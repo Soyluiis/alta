@@ -27,6 +27,10 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+
+Route::get('/ingresar-folio', [App\Http\Controllers\IngresarFolioController::class, 'showForm'])->name('ingresar-folio');
+Route::post('/ingresar-folio', [App\Http\Controllers\IngresarFolioController::class, 'ingresarFolio'])->name('ingresar-folio');
+
 Route::middleware(['auth', CheckRole::class])->group(function () {
 Route::get('/users/create', [App\Http\Controllers\UserController::class, 'create'])->name('users');
 Route::post('/users', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');

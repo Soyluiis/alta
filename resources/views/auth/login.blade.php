@@ -20,21 +20,27 @@
           </div>
           <div class="card-body">
 
-            <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">email</i>
-                  </span>
+            <<div class="bmd-form-group{{ $errors->has('email') || $errors->has('folio') ? ' has-danger' : '' }}">
+                <!-- Campo Email -->
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="material-icons">email</i>
+                        </span>
+                    </div>
+                    <input type="email" name="email" class="form-control" placeholder="{{ __('Email...') }}">
                 </div>
-                <input type="email" name="email" class="form-control" placeholder="{{ __('Email...') }}"  required>
-              </div>
-              @if ($errors->has('email'))
-                <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
-                  <strong>{{ $errors->first('email') }}</strong>
-                </div>
-              @endif
-            </div>
+                @if ($errors->has('email'))
+                    <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </div>
+                @endif
+
+                <!-- Campo Folio -->
+
+
+            <!-- Campo oculto para asignar automáticamente el rol "user" -->
+            <input type="hidden" name="role" value="user">
             <div class="bmd-form-group{{ $errors->has('password') ? ' has-danger' : '' }} mt-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -42,7 +48,7 @@
                             <i class="material-icons">lock_outline</i>
                         </span>
                     </div>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña...') }}" required>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña...') }}">
                 </div>
                 @if ($errors->has('password'))
                     <div id="password-error" class="error text-danger pl-3" for="password" style="display: block;">

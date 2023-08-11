@@ -26,18 +26,24 @@
 
                         <div class="container">
                             <div class="row">
-                              <div class="col">
-                                <div class="form-group">
-                                  <label for="rfc">R.F.C:</label>
-                                  <input type="text" name="rfc" id="rfc" class="form-control" >
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="rfc">R.F.C:</label>
+                                        <input type="text" name="rfc" id="rfc" class="form-control">
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col">
-                                <div class="form-group">
-                                  <label for="no_caat">No. CAAT:</label>
-                                  <input type="text" name="no_caat" id="no_caat" class="form-control" >
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="no_caat">No. CAAT:</label>
+                                        <input type="text" name="no_caat" id="no_caat" class="form-control">
+                                    </div>
                                 </div>
-                              </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="no_caat_aereo">No. CAAT Aereo:</label>
+                                        <input type="text" name="no_caat_aereo" id="no_caat_aereo" class="form-control">
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -195,6 +201,7 @@
                                 <select name="tipo_alta" id="tipo_alta" class="form-control">
                                     <option value="Aero">Aero</option>
                                     <option value="Maritimo">Marítimo</option>
+                                    <option value="Maritimo y Aereo">Marítimo y Aereo</option>
                                 </select>
                             </div>
                           </div>
