@@ -50,36 +50,26 @@ class RegisterController extends Controller
         return $user;
     }
 
+    // Resto del código del controlador
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
+    // Sobreescribir el método validator
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => [ 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'exists:roles,id'], // Validar que el rol exista en la tabla de roles
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
     public function store(Request $request)
-{
-    return User::create([
-        'name' => $request->input('folio'), // Usamos el folio como nombre
-        'folio' => $request->input('folio'), // Agregamos el folio
-        'password' => Hash::make($request->input('folio')), // Usamos el folio como contraseña
-        'role' => 'user', // Asignamos automáticamente el rol "user"
-    ]);
-
-}
+    {
+        return User::create([
+            'name' => $request->input('folio'), // Usamos el folio como nombre
+            'folio' => $request->input('folio'), // Agregamos el folio
+            'password' => Hash::make($request->input('folio')), // Usamos el folio como contraseña
+            'role' => 'user', // Asignamos automáticamente el rol "user"
+        ]);
+    }
 }

@@ -5,10 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Role;
 use App\Models\Permission;
+use App\Models\User;
 
 class RoleSeeder extends Seeder
 {
-    public function run()
+    /* public function run()
     {
         // Crear registros de roles
         Role::create(['name' => 'administrador', 'description' => 'Rol de administrador con acceso completo']);
@@ -23,5 +24,20 @@ class RoleSeeder extends Seeder
 
         // Asignar los permisos al rol de usuario
         $userRole->permissions()->attach($permissionIds);
+
+    } */
+
+
+
+    public function run()
+    {
+        $adminRole = Role::where('name', 'admin')->first();
+        $userRole = Role::where('name', 'user')->first();
+
+        $adminUser = User::find(1);
+        $userUser = User::find(2);
+
+        $adminUser->roles()->attach($adminRole->id);
+        $userUser->roles()->attach($userRole->id);
     }
 }

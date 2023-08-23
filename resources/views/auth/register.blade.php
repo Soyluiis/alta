@@ -57,12 +57,11 @@
                                         <i class="material-icons">person</i>
                                     </span>
                                 </div>
-                                <input list="roles" class="form-control" id="role" name="role" placeholder="{{ __('Selecciona Rol') }}" required>
-                                <datalist id="roles">
+                                <select id="role" name="role" class="form-control" required>
                                     @foreach($roles as $id => $role)
-                                        <option value="{{ $role }}">{{ $role }}</option>
+                                        <option value="{{ $id }}">{{ $role }}</option>
                                     @endforeach
-                                </datalist>
+                                </select>
                             </div>
                             @if ($errors->has('role'))
                                 <div id="role-error" class="error text-danger pl-3" for="role" style="display: block;">
