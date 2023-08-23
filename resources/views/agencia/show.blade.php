@@ -11,6 +11,7 @@
    <div class="card-header">
     <h1 class="card-title">Vista Detallada de la Empresa {{$ver->nombre_fiscal}}</h1>
    </div>
+   
   <div class="card-body">
     <div class="row">
         <div class="col-md-9">

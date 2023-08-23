@@ -307,7 +307,8 @@ return [
         [
             'text' => 'Escritorio',
             'route'  => 'home',
-            'icon' => 'fas fa-fw fa-home'
+            'icon' => 'fas fa-fw fa-home',
+            'can' => 'admin',
 
         ],
         [
@@ -317,7 +318,7 @@ return [
 
         ],
         [
-            'text' => 'Registros',
+            'text' => 'Registros de Altas',
             'route'  => 'vista',
             'icon' => 'fas fa-fw fa-address-card',
             'can' => 'admin',
@@ -329,14 +330,34 @@ return [
 
             'text' => 'Registrar Agentes',
             'route'  => 'users',
-            'icon' => 'fas fa-fw fa-briefcase',
+            'icon' => 'fas fa-fw fa-user-plus',
             'can' => 'admin',
+
+            ],
+
+
+
+
+            [
+                'text' => 'Dar de Alta Folio',
+                'route'  => 'alta.folio.form',
+                'icon' => 'fas fa-fw fa-address-book',
+                'can' => 'admin',
+
 
             ],
 
             [
                 'text' => 'Lista de Agentes',
                 'route'  => 'indes',
+                'icon' => 'fas fa-fw fa-list',
+                'can' => 'admin',
+
+
+            ],
+            [
+                'text' => 'Lista de Folios',
+                'route'  => 'usuarios.con-folio.index',
                 'icon' => 'fas fa-fw fa-list',
                 'can' => 'admin',
 
@@ -444,7 +465,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

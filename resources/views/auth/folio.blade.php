@@ -18,6 +18,16 @@
             <h4 class="card-title"><img src="{{ asset('material') }}/img/validablanco.png" alt="" height="60"></h4>
           </div>
           <div class="card-body">
+            @if (session('success'))
+   <div class="alert alert-success" role="success">
+       {{session('success')}}
+   </div>
+   @endif
+   @if (session('error'))
+   <div class="alert alert-danger" role="success">
+       {{session('error')}}
+   </div>
+   @endif
 
             <!-- Campo Folio -->
             <div class="bmd-form-group{{ $errors->has('folio') ? ' has-danger' : '' }}">

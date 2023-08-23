@@ -6,15 +6,25 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use App\Models\AgenciaCarga;
 
 class UserController extends Controller
 {
-    
+
     public function indes()
     {
-        $users = User::paginate(5);
+        $users = User::whereNull('folio')->paginate(10); // Cambia 'folio' por el nombre correcto del campo en tu tabla
+
         return view('users.indes', compact('users'));
     }
+
+    public function usuariosConFolio()
+{
+    // Obtener usuarios que tienen folio asignado
+    $users = User::whereNotNull('folio')->paginate(10); // Cambia 'folio' por el nombre correcto del campo en tu tabla
+
+    return view('users.con-folio', compact('users'));
+}
 
     public function create()
     {
@@ -67,5 +77,37 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Roles asignados correctamente.');
     }
+
+
+
+
+    //Vista del Plugin
+    public function index()
+{
+    $totalUsers =  User::whereNull('folio')->count();
+    $totalFormats = AgenciaCarga::count();
+    $activeFolios = User::whereNotNull('folio')->count();
+    $notSentAgenciaCarga = AgenciaCarga::where('enviado', false)->count();
+
+    return view('admin.index', compact('totalUsers', 'totalFormats', 'activeFolios', 'notSentAgenciaCarga'));
+}
+
+
+    public function destroyfolio($id)
+{
+    $user = User::findOrFail($id);
+
+    // Desvincular roles antes de eliminar
+    $user->roles()->detach();
+
+    $user->delete();
+
+    return redirect()->back()->with('error', 'Usuario eliminado exitosamente.');
+}
+
+
+
+
+
 }
 

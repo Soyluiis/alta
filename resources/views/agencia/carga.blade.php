@@ -4,6 +4,16 @@
 @section('content')
    @section('content_header')
     <h1>Formato de Alta</h1>
+    @if (session('success'))
+   <div class="alert alert-success" role="success">
+       {{session('success')}}
+   </div>
+   @endif
+   @if (session('error'))
+   <div class="alert alert-danger" role="success">
+       {{session('error')}}
+   </div>
+   @endif
 @stop
 @section('content')
    <div class="row">
@@ -12,6 +22,9 @@
                 <div class="card-header">
                     <h3 class="card-title">Información de la Agencia de Carga</h3>
                 </div>
+
+
+
 
 
                 <div class="card-body">
@@ -342,8 +355,8 @@
                           </div>
                           <div class="form-group float-right">
                             <button type="submit" class="btn btn-primary">Guardar</button>
-                            <button type="submit" class="btn btn-danger" name="enviar" id="btnEnviar" disabled>Enviar</button>
-                </div>
+{{--                             <button type="submit" class="btn btn-danger" name="enviar" id="btnEnviar" disabled>Enviar</button>
+ --}}                </div>
             </form>
         </div>
 

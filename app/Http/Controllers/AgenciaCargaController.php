@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\AgenciaCarga;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\VerificacionExitosa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth; // Importa la clase Auth
+use Carbon\Carbon; // Importa la clase Carbon
+
 
 class AgenciaCargaController extends Controller
 {
@@ -62,22 +67,30 @@ class AgenciaCargaController extends Controller
 
         ]);
 
-        // Si la validación falla, mostrar errores y volver al formulario
-        if ($validator->fails()) {
-            return redirect()->route('vista')->withErrors($validator);
-        }
-
-        // Si el formulario se envió, marcar como enviado y guardar los datos
-        if ($request->has('enviar')) {
-            AgenciaCarga::create(array_merge($request->all(), ['enviado' => true]));
-            return redirect()->route('vista')->with('success', 'Formulario Enviado Exitosamente.');
-        }
-
-        // Si el botón guardar se presionó, guardar los datos sin marcar como enviado
-        AgenciaCarga::create($request->all());
-
-        return redirect()->route('vista')->with('success', 'Registro Guardado Correctamente');
+       // Si la validación falla, mostrar errores y volver al formulario
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
     }
+
+    // Si el formulario se envió, marcar como enviado y guardar los datos
+    if ($request->has('enviar')) {
+        AgenciaCarga::create(array_merge($request->all(), ['enviado' => true]));
+
+        // Cerrar la sesión actual
+        Auth::logout();
+
+        // Redirigir a la página de inicio de sesión con un mensaje de éxito
+        return redirect('/ingresar-folio')->with('success', 'Formulario Enviado Exitosamente. Por favor inicia sesión.');
+    }
+
+    // Si el botón guardar se presionó, guardar los datos sin marcar como enviado
+    AgenciaCarga::create($request->all());
+     // Cerrar la sesión actual
+     Auth::logout();
+
+    // Redirigir a la página de inicio de sesión con un mensaje de éxito
+    return redirect('/ingresar-folio')->with('success', 'Registro Guardado Correctamente.');
+}
 
 
 public function show($id)
@@ -143,7 +156,7 @@ public function update(Request $request, $id)
     // Verificar el valor del campo "enviado"
     if ($ver->enviado) {
         // Si el campo "enviado" es true, redirigir sin realizar la actualización
-        return redirect()->route('vista')->with('error', 'No se puede editar el formulario, ya ha sido enviado.');
+        return redirect()->back()->with('error', 'No se puede editar el formulario, ya ha sido enviado.');
     }
 
     // Actualizar los datos del registro con los datos recibidos del formulario
@@ -152,11 +165,13 @@ public function update(Request $request, $id)
     // Si el formulario se envió, marcar como enviado y guardar los datos
     if ($request->has('enviar')) {
         $ver->update(array_merge($request->all(), ['enviado' => true]));
-        return redirect()->route('vista')->with('success', 'Formulario Enviado Exitosamente.');
+        Notification::route('mail', $ver->correo_acceso)
+            ->notify(new VerificacionExitosa());
+            return redirect()->route('vista')->with('success', 'Formulario Enviado Exitosamente.');
     }
 
     // Redirigir de vuelta al formulario con un mensaje de éxito
-    return redirect()->back()->with('success', 'Formulario actualiado Exitosamente.');
+    return redirect()->route('vista')->with('success', 'Formulario actualizado Exitosamente.');
 }
 
 public function destroy($id)

@@ -1,11 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista de Agentes')
+@section('title', 'Lista de General de Usuarios y Folios')
 
-@section('content')
-   @section('content_header')
-    <h1>Lista de Agentes</h1>
-@stop
+
 
 @section('content')
 <div class="card">
@@ -37,8 +34,8 @@
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th>Rol</th>
-                    <th>Created at</th>
-                    <th>Updated at</th>
+                    <th>Creado</th>
+                    <th>Actualizado</th>
                     <th class="text-right">Acciones</th>
                 </thead>
                 <tbody>
@@ -55,15 +52,14 @@
                         <td>{{ $user->created_at }}</td>
                         <td>{{ $user->updated_at }}</td>
                         <td class= "text-right">
-                            <button class="btn-sm btn-info" type="button">
-                                <i class="fas fa-fw fa-caret-down"></i>
-                            </button>
-                            <button class="btn-sm btn-warning" type="button">
-                                <i class="fas fa-fw fa-pen"></i>
-                            </button>
-                            <button class="btn-sm btn-danger" type="button">
-                                <i class="fas fa-fw fa-eraser"></i>
-                            </button>
+
+                            <form action="{{ route('usuarios.destroy', $user->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn-sm btn-danger" type="submit">
+                                    <i class="fas fa-fw fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

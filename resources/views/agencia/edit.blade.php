@@ -321,7 +321,7 @@
                             @if(!$ver->enviado)
                             <button type="submit" class="btn btn-primary" name="btnActualizar" id="btnActualizar">Actualizar</button>
                             @endif
-                            <button type="submit" class="btn btn-danger" name="enviar" id="btnEnviar" disabled>Enviar</button>
+                            <button type="submit" class="btn btn-danger" name="enviar" id="btnEnviar" disabled>Verificado</button>
                 </div>
             </form>
         </div>

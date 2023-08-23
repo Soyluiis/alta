@@ -20,7 +20,7 @@
           </div>
           <div class="card-body">
 
-            <<div class="bmd-form-group{{ $errors->has('email') || $errors->has('folio') ? ' has-danger' : '' }}">
+            <div class="bmd-form-group{{ $errors->has('email') || $errors->has('folio') ? ' has-danger' : '' }}">
                 <!-- Campo Email -->
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -36,10 +36,10 @@
                     </div>
                 @endif
 
-                <!-- Campo Folio -->
 
 
-            <!-- Campo oculto para asignar automáticamente el rol "user" -->
+
+
             <input type="hidden" name="role" value="user">
             <div class="bmd-form-group{{ $errors->has('password') ? ' has-danger' : '' }} mt-3">
                 <div class="input-group">

@@ -51,16 +51,23 @@
                         </div>
 
                         <div class="bmd-form-group{{ $errors->has('role') ? ' has-danger' : '' }} mt-3">
-                            <label for="role" class="bmd-label-floating">{{ __('Seleccionar Rol') }}</label>
-                            <select class="form-control" id="role" name="role" required>
-                                @foreach($roles as $id => $role)
-                                <option value="{{ $id }}">{{ $role }}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has('role'))
-                            <div id="role-error" class="error text-danger pl-3" for="role" style="display: block;">
-                                <strong>{{ $errors->first('role') }}</strong>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="material-icons">person</i>
+                                    </span>
+                                </div>
+                                <input list="roles" class="form-control" id="role" name="role" placeholder="{{ __('Selecciona Rol') }}" required>
+                                <datalist id="roles">
+                                    @foreach($roles as $id => $role)
+                                        <option value="{{ $role }}">{{ $role }}</option>
+                                    @endforeach
+                                </datalist>
                             </div>
+                            @if ($errors->has('role'))
+                                <div id="role-error" class="error text-danger pl-3" for="role" style="display: block;">
+                                    <strong>{{ $errors->first('role') }}</strong>
+                                </div>
                             @endif
                         </div>
 
