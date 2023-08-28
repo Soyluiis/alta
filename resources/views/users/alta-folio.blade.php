@@ -49,16 +49,30 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const generateButton = document.getElementById('generateFolio');
-    const folioInput = document.getElementById('folio');
+    document.addEventListener('DOMContentLoaded', function() {
+        const generateButton = document.getElementById('generateFolio');
+        const folioInput = document.getElementById('folio');
 
-    generateButton.addEventListener('click', function() {
-        const generatedFolio = '01-' + Math.floor(Math.random() * 90000000 + 10000000);
-        folioInput.value = generatedFolio;
+        generateButton.addEventListener('click', function() {
+            const prefijo = 'CM001'; // Cambia esto a tu prefijo deseado
+
+            // Generamos un número aleatorio de 4 dígitos
+            const randomNum = Math.floor(Math.random() * 9000) + 1000;
+
+            // Generamos la fecha actual en formato DDMMAAA
+            const currentDate = new Date();
+            const dia = String(currentDate.getDate()).padStart(2, '0');
+            const mes = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const anio = currentDate.getFullYear();
+
+            // Generamos el nuevo folio
+            const generatedFolio = `${prefijo}-${dia}${mes}${anio}-${randomNum}`;
+
+            // Asignamos el valor al input
+            folioInput.value = generatedFolio;
+        });
     });
-});
-</script>
+    </script>
 @stop
 
 @section('css')

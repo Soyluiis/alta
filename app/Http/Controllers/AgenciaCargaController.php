@@ -72,6 +72,12 @@ class AgenciaCargaController extends Controller
         return redirect()->back()->withErrors($validator)->withInput();
     }
 
+    // Verificar si el RFC ya existe en la base de datos
+    $existingRfc = AgenciaCarga::where('rfc', $request->input('rfc'))->first();
+    if ($existingRfc) {
+        return redirect()->back()->with('error', 'El RFC ya está registrado.');
+    }
+
     // Si el formulario se envió, marcar como enviado y guardar los datos
     if ($request->has('enviar')) {
         AgenciaCarga::create(array_merge($request->all(), ['enviado' => true]));
@@ -83,13 +89,13 @@ class AgenciaCargaController extends Controller
         return redirect('/ingresar-folio')->with('success', 'Formulario Enviado Exitosamente. Por favor inicia sesión.');
     }
 
-    // Si el botón guardar se presionó, guardar los datos sin marcar como enviado
-    AgenciaCarga::create($request->all());
-     // Cerrar la sesión actual
-     Auth::logout();
+      // Si el botón guardar se presionó, guardar los datos sin marcar como enviado
+      AgenciaCarga::create($request->all());
+      // Cerrar la sesión actual
+      Auth::logout();
 
-    // Redirigir a la página de inicio de sesión con un mensaje de éxito
-    return redirect('/ingresar-folio')->with('success', 'Registro Guardado Correctamente.');
+     // Redirigir a la página de inicio de sesión con un mensaje de éxito
+     return redirect('/ingresar-folio')->with('success', 'Registro Guardado Correctamente.');
 }
 
 

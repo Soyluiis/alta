@@ -1,6 +1,11 @@
 @extends('adminlte::page')
 
 @section('title', 'Alta de Información')
+
+@if (Auth::check())  {{-- Agrega esta línea para verificar la autenticación --}}
+    @section('content')
+        {{-- Contenido del formulario --}}
+
 @section('content')
    @section('content_header')
     <h1>Formato de Alta</h1>
@@ -148,12 +153,12 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col">
-                                <div class="form-group">
-                                  <label for="metodo_pago">Método de Pago:</label>
-                                  <input type="text" name="metodo_pago" id="metodo_pago" class="form-control" >
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="metodo_pago">Método de Pago:</label>
+                                        <input type="text" name="metodo_pago" id="metodo_pago" class="form-control" value="PPD" readonly>
+                                    </div>
                                 </div>
-                              </div>
                               <div class="col">
                                 <div class="form-group">
                                   <label for="regimen_fiscal">Régimen Fiscal:</label>
@@ -162,35 +167,20 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col">
-                                <div class="form-group">
-                                  <label for="forma_pago">Forma de Pago (sólo acepta números):</label>
-                                  <input type="number" name="forma_pago" id="forma_pago" class="form-control" >
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="forma_pago">Forma de Pago (sólo acepta números):</label>
+                                        <input type="number" name="forma_pago" id="forma_pago" class="form-control" value="99" readonly>
+                                    </div>
                                 </div>
-                              </div>
                               <div class="col">
                                 <div class="form-group">
                                     <label for="uso_cfdi">Uso de CFDI:</label>
                                     <select name="uso_cfdi" id="uso_cfdi" class="form-control">
-                                        <option value="G01">G01</option>
-                                        <option value="G02">G02</option>
-                                        <option value="G03">G03</option>
-                                        <option value="101">101</option>
-                                        <option value="102">102</option>
-                                        <option value="103">103</option>
-                                        <option value="104">104</option>
-                                        <option value="105">105</option>
-                                        <option value="106">106</option>
-                                        <option value="107">107</option>
-                                        <option value="108">108</option>
-                                        <option value="D01">D01</option>
-                                        <option value="D02">D02</option>
-                                        <option value="D03">D03</option>
-                                        <option value="D04">D04</option>
-                                        <option value="D05">D05</option>
-                                        <option value="D06">D06</option>
-                                        <option value="D07">D07</option>
-                                        <option value="D08">D08</option>
+                                        <option value="G01: Adquisición de mercancías">G01: Adquisición de mercancías</option>
+                                        <option value="G02: Devoluciones o bonificaciones">G02: Devoluciones o bonificaciones</option>
+                                        <option value="G03: Gastos en general">G03: Gastos en general</option>
+                                        <option value="O01: Construcciones">O01: Construcciones</option>
                                     </select>
                                 </div>
                               </div>
@@ -397,3 +387,15 @@
         });
     </script>
 @stop
+
+
+@stop
+@else
+    @section('content')
+        <div class="alert alert-danger" role="alert">
+            Debes iniciar sesión para acceder a este formulario.
+        </div>
+    @stop
+    {{-- Agrega el metatag de redirección automática --}}
+    <meta http-equiv="refresh" content="1;url={{ route('login') }}">
+@endif
