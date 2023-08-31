@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use App\Models\AgenciaCarga;
+use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\VerificacionExitosa;
 use Illuminate\Http\Request;
@@ -78,24 +80,28 @@ class AgenciaCargaController extends Controller
         return redirect()->back()->with('error', 'El RFC ya está registrado.');
     }
 
-    // Si el formulario se envió, marcar como enviado y guardar los datos
     if ($request->has('enviar')) {
+        // Guardar los datos con la marca 'enviado' en true
         AgenciaCarga::create(array_merge($request->all(), ['enviado' => true]));
 
-        // Cerrar la sesión actual
+        // Cerrar la sesión actual (si es necesario)
         Auth::logout();
 
         // Redirigir a la página de inicio de sesión con un mensaje de éxito
         return redirect('/ingresar-folio')->with('success', 'Formulario Enviado Exitosamente. Por favor inicia sesión.');
+    } else {
+        // Guardar los datos sin marcar como enviado
+        AgenciaCarga::create($request->all());
+
+        // Marcar el formulario como enviado en la sesión
+        session(['form_submitted' => true]);
+
+        // Cerrar la sesión actual (si es necesario)
+        Auth::logout();
+
+        // Redirigir a la página de inicio de sesión con un mensaje de éxito
+        return redirect('/ingresar-folio')->with('success', 'Registro Guardado Correctamente.');
     }
-
-      // Si el botón guardar se presionó, guardar los datos sin marcar como enviado
-      AgenciaCarga::create($request->all());
-      // Cerrar la sesión actual
-      Auth::logout();
-
-     // Redirigir a la página de inicio de sesión con un mensaje de éxito
-     return redirect('/ingresar-folio')->with('success', 'Registro Guardado Correctamente.');
 }
 
 

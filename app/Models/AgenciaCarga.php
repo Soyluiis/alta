@@ -47,6 +47,10 @@ class AgenciaCarga extends Model
         'telefono_cuentas',
         'enviado',
         'ciudad',
+        'uso_exclusivo_tarifa_maritimo',
+        'uso_exclusivo_referencia_maritimo',
+         'uso_exclusivo_id_maritimo',
+         'no_caat_aereo',
     ];
 
     // Puedes agregar relaciones o métodos adicionales aquí si es necesario

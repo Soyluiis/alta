@@ -1,7 +1,9 @@
 @extends('adminlte::page')
 
 @section('title', 'Alta de Información')
-
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 @if (Auth::check())  {{-- Agrega esta línea para verificar la autenticación --}}
     @section('content')
         {{-- Contenido del formulario --}}
@@ -69,7 +71,7 @@
 
 
                         <div class="form-group">
-                            <label for="nombre_comercial">Nombre Comercial de la Agencia de Carga:</label>
+                            <label for="nombre_comercial">Nombre Comercial de la Agencia de Carga (sin Regimen Capital): </label>
                             <input type="text" name="nombre_comercial" id="nombre_comercial" class="form-control" >
                         </div>
 
@@ -322,8 +324,11 @@
                     </div>
                     <div class="card-body">
                         <div class="container">
+                            <h6>Para Tráfico Aéreo</h6>
+
                             <div class="row">
                               <div class="col">
+
                                 <div class="form-group">
                                   <label for="uso_exclusivo_tarifa">Tarifa:</label>
                                   <input type="text" name="uso_exclusivo_tarifa" id="uso_exclusivo_tarifa" class="form-control" >
@@ -342,6 +347,28 @@
                                 </div>
                               </div>
                             </div>
+
+                            <h6>Para Tráfico Marítimo</h6>
+
+                            <div class="row">
+                                <div class="col">
+
+                                    <div class="form-group">
+                                        <label for="uso_exclusivo_tarifa_maritimo">Tarifa (Marítimo):</label>
+                                        <input type="text" name="uso_exclusivo_tarifa_maritimo" id="uso_exclusivo_tarifa_maritimo" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="uso_exclusivo_referencia_maritimo">Referencia Bancaria (Marítimo):</label>
+                                        <input type="text" name="uso_exclusivo_referencia_maritimo" id="uso_exclusivo_referencia_maritimo" class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
                           </div>
                           <div class="form-group float-right">
                             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -352,6 +379,7 @@
 
     </div>
     <script>
+
         // Función para verificar si todos los campos están llenos, excepto los campos excluidos
         function verificarCamposLlenos() {
             const campos = document.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="password"]');
@@ -396,6 +424,5 @@
             Debes iniciar sesión para acceder a este formulario.
         </div>
     @stop
-    {{-- Agrega el metatag de redirección automática --}}
-    <meta http-equiv="refresh" content="1;url={{ route('login') }}">
+
 @endif
