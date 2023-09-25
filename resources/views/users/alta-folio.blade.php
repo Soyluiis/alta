@@ -33,12 +33,17 @@
 
                 <div class="form-group">
                     <label for="folio">Folio:</label>
-                    <input type="text" name="folio" id="folio" class="form-control" required>
+                    <input type="text" name="folio" id="folio" class="form-control" required readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="fecha_vencimiento">Fecha de Vencimiento:</label>
                     <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="correo">Correo Electrónico:</label>
+                    <input type="email" name="correo" id="correo" class="form-control" required>
                 </div>
 
                 <button type="button" class="btn btn-primary" id="generateFolio">Generar Folio</button>

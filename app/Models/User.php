@@ -8,18 +8,24 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\AgenciaCarga;
+
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function agenciaCargas()
+{
+    return $this->hasMany(AgenciaCarga::class);
+}
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'folio', 'password', 'email','role', 'used_folio','fecha_vencimiento',
+        'name', 'folio', 'password', 'email','role', 'used_folio','fecha_vencimiento', 'folio_usos',
     ];
 
     /**
@@ -54,6 +60,13 @@ class User extends Authenticatable
     {
         return $this->roles->contains('id', 1);
     }
+
+
+    public function agenciaCarga()
+{
+    return $this->hasOne(AgenciaCarga::class, 'usuario_id', 'name');
+}
+
 
 
 }

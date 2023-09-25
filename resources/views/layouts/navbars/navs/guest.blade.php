@@ -15,8 +15,8 @@
     <div class="collapse navbar-collapse justify-content-end">
       <ul class="navbar-nav">
         <li class="nav-item">
-            <a href="https://validacarga.net/" class="nav-link">
-                <i class="material-icons">web</i> {{ __('Sitio') }}
+            <a href="{{ route('home') }}" class="nav-link">
+                <i class="material-icons">web</i> {{ __('Login') }}
               </a>
         </li>
 
@@ -26,11 +26,11 @@
             </a>
         </li>
 
-        <li class="nav-item">
-            <a href="{{ route('register') }}" class="nav-link">
-                <i class="material-icons">assignment</i> {{ __('Registro') }}
-            </a>
-        </li>
+        <!-- <li class="nav-item">
+    <a href="{{ route('register') }}" class="nav-link">
+        <i class="material-icons">assignment</i> {{ __('Registro') }}
+    </a>
+</li> -->
 
 
         <li class="nav-item ">

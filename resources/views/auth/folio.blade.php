@@ -1,6 +1,8 @@
 @extends('layouts.main', ['class' => 'off-canvas-sidebar', 'activePage' => 'login', 'title' => __('Material ')])
 
 @section('content')
+@section('content')
+
 <div class="container" style="height: auto;">
   <div class="row align-items-center">
     <div class="col-md-9 ml-auto mr-auto mb-3 text-center">
@@ -19,36 +21,40 @@
           </div>
           <div class="card-body">
             @if (session('success'))
-   <div class="alert alert-success" role="success">
-       {{session('success')}}
-   </div>
-   @endif
-   @if (session('error'))
-   <div class="alert alert-danger" role="success">
-       {{session('error')}}
-   </div>
-   @endif
+              <div class="alert alert-success" role="success">
+                {{ session('success') }}
+              </div>
+            @endif
+            @if (session('error'))
+              <div class="alert alert-danger" role="success">
+                {{ session('error') }}
+              </div>
+            @endif
 
             <!-- Campo Folio -->
             <div class="bmd-form-group{{ $errors->has('folio') ? ' has-danger' : '' }}">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="material-icons">account_circle</i>
-                        </span>
-                    </div>
-                    <input type="text" name="folio" class="form-control" placeholder="{{ __('Número o Folio...') }}">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">account_circle</i>
+                  </span>
                 </div>
-                @if ($errors->has('folio'))
-                    <div id="folio-error" class="error text-danger pl-3" for="folio" style="display: block;">
-                        <strong>{{ $errors->first('folio') }}</strong>
-                    </div>
-                @endif
+                <input type="text" name="folio" class="form-control" placeholder="{{ __('Número o Folio...') }}" id="folio-input">
+              </div>
+              @if ($errors->has('folio'))
+                <div id="folio-error" class="error text-danger pl-3" for="folio" style="display: block;">
+                  <strong>{{ $errors->first('folio') }}</strong>
+                </div>
+              @endif
             </div>
 
+            <!-- Mensaje de validación -->
+            <div id="folio-validation" class="error text-danger pl-3 mt-2" style="display: none; text-align: center;">
+              <strong>{{ __('Favor de ingresar un folio válido.') }}</strong>
+            </div>
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Entrar') }}</button>
+            <button type="button" class="btn btn-primary btn-link btn-lg" onclick="validarFolio()">{{ __('Entrar') }}</button>
           </div>
         </div>
       </form>
@@ -58,5 +64,29 @@
     </div>
   </div>
 </div>
+
+
+
+<script>
+  function validarFolio() {
+    const folioInput = document.querySelector('#folio-input');
+    const folioValidation = document.getElementById('folio-validation');
+    const botonEntrar = document.querySelector('.btn-primary');
+
+    if (folioInput.value.trim() === '') {
+      folioValidation.style.display = 'block';
+      botonEntrar.disabled = true;
+    } else {
+      folioValidation.style.display = 'none';
+      botonEntrar.disabled = false;
+      // Si el folio es válido, puedes enviar el formulario aquí
+      document.querySelector('form').submit();
+    }
+  }
+</script>
+
+
+
+
 @endsection
 

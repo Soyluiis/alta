@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
 use App\Models\AgenciaCarga;
-use App\Http\Middleware\CheckRole;
+
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\VerificacionExitosa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth; // Importa la clase Auth
-use Carbon\Carbon; // Importa la clase Carbon
 
 
 class AgenciaCargaController extends Controller
 {
+
+
+
     public function index()
     {
         $vistas = AgenciaCarga::paginate(10);
@@ -30,6 +32,8 @@ class AgenciaCargaController extends Controller
 
     public function store(Request $request)
     {
+
+
         // Validar los datos enviados por el formulario
         $validator = Validator::make($request->all(), [
             'nombre_fiscal' => 'nullable|string',
@@ -66,19 +70,21 @@ class AgenciaCargaController extends Controller
             'uso_exclusivo_referencia' => 'nullable|string',
             'uso_exclusivo_id' => 'nullable|string',
             'ciudad'=> 'nullable|string',
+            'usuario_id'=> 'nullable|string',
+
 
         ]);
+
+
+
+
 
        // Si la validación falla, mostrar errores y volver al formulario
     if ($validator->fails()) {
         return redirect()->back()->withErrors($validator)->withInput();
     }
 
-    // Verificar si el RFC ya existe en la base de datos
-    $existingRfc = AgenciaCarga::where('rfc', $request->input('rfc'))->first();
-    if ($existingRfc) {
-        return redirect()->back()->with('error', 'El RFC ya está registrado.');
-    }
+
 
     if ($request->has('enviar')) {
         // Guardar los datos con la marca 'enviado' en true
@@ -96,12 +102,14 @@ class AgenciaCargaController extends Controller
         // Marcar el formulario como enviado en la sesión
         session(['form_submitted' => true]);
 
-        // Cerrar la sesión actual (si es necesario)
+        // Cerrar la sesión actual
         Auth::logout();
 
         // Redirigir a la página de inicio de sesión con un mensaje de éxito
-        return redirect('/ingresar-folio')->with('success', 'Registro Guardado Correctamente.');
+        return redirect('/ingresar-folio')->with('success', 'Formulario Guardado Exitosamente. Por favor inicia sesión.');
     }
+
+
 }
 
 
@@ -200,8 +208,14 @@ public function destroy($id)
     $ver->delete();
 
     // Redirigir de vuelta al listado de registros con un mensaje de éxito
-    return redirect()->route('vista')->with('', 'Registro eliminado correctamente.');
+    return redirect()->route('vista')->with('error', 'Registro eliminado correctamente.');
 }
+
+
+
+
+
+
 
 
 }

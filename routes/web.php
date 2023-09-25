@@ -33,6 +33,9 @@ Route::get('/ingresar-folio', [App\Http\Controllers\IngresarFolioController::cla
 Route::post('/ingresar-folio', [App\Http\Controllers\IngresarFolioController::class, 'ingresarFolio'])->name('ingresar-folio');
 
 
+
+
+
 Route::get('/alta-folio', [App\Http\Controllers\IngresarFolioController::class, 'showAltaForm'])->name('alta.folio.form');
 Route::post('/alta-folio', [App\Http\Controllers\IngresarFolioController::class, 'altaFolio'])->name('alta.folio');
 /* Route::post('/alta-folio/auto', [App\Http\Controllers\IngresarFolioController::class, 'generateAutomaticFolio'])->name('alta.folio.auto');

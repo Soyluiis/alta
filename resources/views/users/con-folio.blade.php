@@ -28,7 +28,8 @@
                         <th>Folio</th>
                         <th>Fecha de Creación</th>
                         <th>Fecha de Vencimiento</th>
-                        <th>Usado</th>
+
+                        <th>Usados</th>
                         <th class="text-right">Acciones</th>
                     </tr>
                 </thead>
@@ -38,7 +39,14 @@
                             <td>{{ $user->folio }}</td>
                             <td>{{ $user->created_at }}</td>
                             <td>{{ $user->fecha_vencimiento }}</td>
-                            <td>{{ $user->used_folio ? 'Sí' : 'No' }}</td>
+
+                            <td>
+                                @if ($user->used_folio)
+                                    Agotados
+                                @else
+                                    {{ 5 - $user->folio_usos }} intentos restantes
+                                @endif
+                            </td>
                             <td class="text-right">
                                 {{-- <button class="btn-sm btn-info" type="button">
                                     <i class="fas fa-fw fa-caret-down"></i>

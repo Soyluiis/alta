@@ -6,12 +6,12 @@
     <h1>Formato de Alta</h1>
 @stop
 
-@section('content')
+
 @if (session('success'))
    <div class="alert alert-success" role="success">
        {{session('success')}}
    </div>
-   @endif
+    @endif
    {{-- Contenido del formulario --}}
    <form action="{{ route('cargas.update', $ver->id) }}" method="POST">
     @csrf
@@ -21,8 +21,9 @@
     <div class="col-md-6">
         {{-- Información de la Agencia de Carga --}}
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Información de la Agencia de Carga</h3>
+            <div class="form-group">
+                <label for="usuario_id">Folio:</label>
+                <input type="text" name="usuario_id" id="usuario_id" class="form-control" value="{{ $ver->usuario_id }}" disabled>
             </div>
             <div class="card-body">
                 <div class="form-group">
@@ -305,6 +306,7 @@
                           </div>
                         </div>
                       </div>
+                      @can('admin', Auth::user())
                       <div class="card-header">
                         <h3 class="card-title">Para uso exclusivo de Validacarga</h3>
                     </div>
@@ -348,11 +350,14 @@
                             </div>
                         </div>
                     </div>
+                    @endcan
                     <div class="form-group float-right">
                         @if(!$ver->enviado)
                         <button type="submit" class="btn btn-primary" name="btnActualizar" id="btnActualizar">Actualizar</button>
                         @endif
+                        @can('admin', Auth::user())
                         <button type="submit" class="btn btn-danger" name="enviar" id="btnEnviar" disabled>Verificado</button>
+                        @endcan
                     </div>
 </div>
 

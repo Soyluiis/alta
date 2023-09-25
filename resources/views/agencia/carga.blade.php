@@ -27,7 +27,10 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Información de la Agencia de Carga</h3>
+                    <div class="col-3 form-inline">
+
+                    </div>
+
                 </div>
 
 
@@ -37,6 +40,13 @@
                 <div class="card-body">
                     <form action="{{ route('cargas.store') }}" method="POST">
                         @csrf
+                        <div class="form-group">
+                            <label for="usuario_id">Folio:  </label>
+                            <input type="text" name="usuario_id" id="usuario_id" class="form-control" value="{{ auth()->user()->name }}" readonly>
+
+
+
+                        </div>
 
                         <div class="form-group">
                             <label for="nombre_fiscal">Nombre Fiscal de la Agencia de Carga:</label>
@@ -319,6 +329,7 @@
                           </div>
                         </div>
                       </div>
+                      @can('admin', Auth::user())
                     <div class="card-header">
                         <h3 class="card-title">Para uso exclusivo de Validacarga </h3>
                     </div>
@@ -365,11 +376,13 @@
                                     </div>
                                 </div>
 
+
                             </div>
 
 
 
                           </div>
+                          @endcan
                           <div class="form-group float-right">
                             <button type="submit" class="btn btn-primary">Guardar</button>
 {{--                             <button type="submit" class="btn btn-danger" name="enviar" id="btnEnviar" disabled>Enviar</button>
@@ -426,3 +439,32 @@
     @stop
 
 @endif
+
+<script>
+    // Agrega un evento al formulario para que se ejecute cuando se envía
+    document.addEventListener('DOMContentLoaded', function () {
+        const guardarButton = document.getElementById('guardarButton');
+
+        // Agrega un evento clic al botón "Guardar"
+        guardarButton.addEventListener('click', function (event) {
+            event.preventDefault(); // Previene el envío del formulario
+
+            // Realiza aquí cualquier otra acción que necesites antes de abrir una nueva ventana
+
+            // Abre una nueva ventana
+            const nuevaVentana = window.open('', '_blank');
+
+            // Cambia la URL de la nueva ventana a donde desees redirigir
+            nuevaVentana.location.href = '/ingresar-folio';
+
+            // Cierra la ventana actual
+            window.close();
+        });
+    });
+</script>
+
+
+
+
+
+
