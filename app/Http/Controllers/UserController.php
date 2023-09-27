@@ -39,7 +39,7 @@ class UserController extends Controller
         // Validar los datos del formulario y crear el usuario
         $request->validate([
             'name' => 'required|max:30',
-            'email' => 'required|email|unique:users',
+            'email' => 'email|unique:users',
             'password' => 'required|min:8',
             'role' => 'required|exists:roles,id',
         ]);

@@ -4,8 +4,8 @@
     $totalFormats = App\Models\AgenciaCarga::count();
     $activeFolios = App\Models\User::whereNotNull('folio')->count();
     $notSentAgenciaCarga = App\Models\AgenciaCarga::where('enviado', false)->count();
-
 @endphp
+
 @section('title', 'Página Principal')
 
 @section('content_header')
@@ -15,6 +15,7 @@
 @section('content')
 <div class="card">
     <div class="card-body">
+        @can('admin', Auth::user())
         <div class="row">
             <div class="col-md-4">
                 <div class="info-box">
@@ -47,12 +48,18 @@
                 <div class="info-box">
                     <span class="info-box-icon bg-danger"><i class="fas fa-times-circle"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Altas Pendientes de Envio:</span>
+                        <span class="info-box-text">Altas Pendientes de Envío:</span>
                         <span class="info-box-number">{{ $notSentAgenciaCarga }}</span>
                     </div>
                 </div>
             </div>
         </div>
+        @else
+        <!-- Mostrar un mensaje de error personalizado -->
+        <div class="alert alert-danger">
+            <p>No tienes permisos para acceder a esta página o hay un problema de conexión o permisos.</p>
+        </div>
+        @endcan
     </div>
 </div>
 @stop

@@ -1,10 +1,11 @@
 @extends('adminlte::page')
-
 @section('title', 'Lista de Altas')
+
 @section('content')
    @section('content_header')
     <h1>Lista de Altas</h1>
 @stop
+@can('admin', Auth::user())
 
 @section('content')
 <div class="card">
@@ -51,7 +52,7 @@
                             <a href="{{route('show',$vista->id)}}" class="btn btn-info"> <i class="fas fa-fw fa-eye"></i></a>
                             @if(!$vista->enviado)
                             <a href="{{route('edit',$vista->id)}}" class="btn btn-warning"> <i class="fas fa-fw fa-pen"></i></a>
-                            
+
                             <form action="{{ route('cargas.destroy', $vista->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
@@ -72,4 +73,5 @@
         </div>
     </form>
 </div>
+@endcan
 @stop

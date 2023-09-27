@@ -190,8 +190,8 @@ public function update(Request $request, $id)
             return redirect()->route('vista')->with('success', 'Formulario Enviado Exitosamente.');
     }
 
-    // Redirigir de vuelta al formulario con un mensaje de éxito
-    return redirect()->route('vista')->with('success', 'Formulario actualizado Exitosamente.');
+    Auth::logout(); // Cierra la sesión actual
+    return redirect()->route('ingresar-folio')->with('success', 'Formulario actualizado Exitosamente.');
 }
 
 public function destroy($id)

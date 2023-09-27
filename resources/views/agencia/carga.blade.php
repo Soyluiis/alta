@@ -4,11 +4,12 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-@if (Auth::check())  {{-- Agrega esta línea para verificar la autenticación --}}
+
+
     @section('content')
         {{-- Contenido del formulario --}}
 
-@section('content')
+    @section('content')
    @section('content_header')
     <h1>Formato de Alta</h1>
     @if (session('success'))
@@ -21,8 +22,9 @@
        {{session('error')}}
    </div>
    @endif
-@stop
-@section('content')
+    @stop
+    @section('content')
+@if (Auth::check())
    <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -384,15 +386,17 @@
                           </div>
                           @endcan
                           <div class="form-group float-right">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-{{--                             <button type="submit" class="btn btn-danger" name="enviar" id="btnEnviar" disabled>Enviar</button>
- --}}                </div>
+                            <button type="submit" class="btn btn-primary" name="guardar" id="btnGuardar" disabled>Guardar</button>
+
+
+        {{--                             <button type="submit" class="btn btn-danger" name="enviar" id="btnEnviar" disabled>Enviar</button>
+        --}}                </div>
             </form>
         </div>
 
-    </div>
-    <script>
+        </div>
 
+        <script>
         // Función para verificar si todos los campos están llenos, excepto los campos excluidos
         function verificarCamposLlenos() {
             const campos = document.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="password"]');
@@ -413,7 +417,7 @@
         const camposInput = document.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="password"]');
         for (const campo of camposInput) {
             campo.addEventListener('input', function () {
-                const btnEnviar = document.getElementById('btnEnviar');
+                const btnEnviar = document.getElementById('btnGuardar');
                 btnEnviar.disabled = !verificarCamposLlenos();
             });
         }
@@ -426,23 +430,23 @@
                 // Puedes agregar aquí algún mensaje o lógica adicional si lo deseas
             }
         });
-    </script>
-@stop
+        </script>
+        @stop
 
 
-@stop
-@else
-    @section('content')
+        @stop
+        @else
+        @section('content')
         <div class="alert alert-danger" role="alert">
             Debes iniciar sesión para acceder a este formulario.
         </div>
-    @stop
+        @stop
 
-@endif
+        @endif
 
-<script>
-    // Agrega un evento al formulario para que se ejecute cuando se envía
-    document.addEventListener('DOMContentLoaded', function () {
+     <script>
+        // Agrega un evento al formulario para que se ejecute cuando se envía
+        document.addEventListener('DOMContentLoaded', function () {
         const guardarButton = document.getElementById('guardarButton');
 
         // Agrega un evento clic al botón "Guardar"
@@ -459,9 +463,11 @@
 
             // Cierra la ventana actual
             window.close();
+
+            window.onunload = function() {};
         });
-    });
-</script>
+        });
+    </script>
 
 
 

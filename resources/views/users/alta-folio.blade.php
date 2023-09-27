@@ -1,8 +1,6 @@
 @extends('adminlte::page')
 @php
     $totalUsers = App\Models\User::whereNull('folio')->count();
-
-
 @endphp
 
 @section('title', 'Alta de Folio')
@@ -13,6 +11,7 @@
 
 @section('content')
 <div class="d-flex justify-content-center align-items-start vh-100">
+    @can('admin', Auth::user())
     <div class="card w-50 mt-5">
         <div class="card-header">
             <h1 class="card-title">Ingresa el folio</h1>
@@ -51,6 +50,11 @@
             </form>
         </div>
     </div>
+    @else
+    <div class="alert alert-danger" role="alert">
+        No tienes los permisos necesarios para acceder a esta página.
+    </div>
+    @endcan
 </div>
 
 <script>
@@ -77,7 +81,8 @@
             folioInput.value = generatedFolio;
         });
     });
-    </script>
+</script>
+
 @stop
 
 @section('css')

@@ -1,21 +1,23 @@
 @extends('adminlte::page')
 
 @section('title', 'Alta de Información')
-@section('content')
-   @section('content_header')
+
+@section('content_header')
     <h1>Formato de Alta</h1>
 @stop
 
-
-@if (session('success'))
-   <div class="alert alert-success" role="success">
-       {{session('success')}}
-   </div>
+@section('content')
+    @if (session('success'))
+       <div class="alert alert-success" role="success">
+           {{ session('success') }}
+       </div>
     @endif
-   {{-- Contenido del formulario --}}
-   <form action="{{ route('cargas.update', $ver->id) }}" method="POST">
-    @csrf
-    @method('PUT')
+
+    @if (Auth::check())
+        {{-- Contenido del formulario --}}
+        <form action="{{ route('cargas.update', $ver->id) }}" method="POST">
+            @csrf
+            @method('PUT')
 
     <div class="row">
     <div class="col-md-6">
@@ -410,10 +412,23 @@
                 event.preventDefault(); // Evitar el envío del formulario si no se cumplen las validaciones
                 // Puedes agregar aquí algún mensaje o lógica adicional si lo deseas
             }
+
+
+
+
+
         });
     </script>
+
+@else
+@section('content')
+    <div class="alert alert-danger" role="alert">
+        Debes iniciar sesión para acceder a este formulario.
+    </div>
+@stop
+@endif
 @stop
 
 
-@endsection
+
 
