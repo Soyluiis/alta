@@ -82,6 +82,8 @@
       // Si el folio es válido, puedes enviar el formulario aquí
       document.querySelector('form').submit();
     }
+
+
   }
 </script>
 

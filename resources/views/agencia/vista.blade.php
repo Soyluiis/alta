@@ -24,8 +24,7 @@
    @endif
 
   <div class="card-body">
-    <form action="#" method="POST">
-        @csrf
+
 
         <div class="table-responsive">
             <table class="table">
@@ -71,7 +70,7 @@
         <div class="card-footer">
             {{ $vistas->links() }}
         </div>
-    </form>
+
 </div>
 @endcan
 @stop

@@ -56,9 +56,9 @@
                             <form action="{{ route('usuarios.destroy', $user->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn-sm btn-danger" type="submit">
-                                    <i class="fas fa-fw fa-trash"></i>
-                                </button>
+                                <button type="submit" class="btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este Agente?')" title="Eliminar"><i class="fas fa-fw fa-eraser"></i></button>
+
+
                             </form>
                         </td>
                     </tr>
