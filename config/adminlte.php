@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'logo' => '<b>Alta de</b> Usuarios',
+    'logo' => '<b>Alta de</b> Empresas',
     'logo_img' => 'vendor/adminlte/dist/img/validaicono.png',
     'logo_img_class' => 'brand-image',
     'logo_img_xl' => null,
@@ -312,57 +312,61 @@ return [
 
         ],
         [
-            'text' => 'Dar de Alta',
-            'route'  => 'carga',
-            'icon' => 'fas fa-fw fa-file-export'
-
+            'text' => 'Empresas',
+            'icon' => 'fas fa-fw fa-building',
+            'submenu' => [
+                [
+                    'text' => 'Dar de Alta',
+                    'route' => 'carga',
+                    'icon' => 'fas fa-fw fa-file-export'
+                ],
+                [
+                    'text' => 'Registros de Altas',
+                    'route' => 'vista',
+                    'icon' => 'fas fa-fw fa-address-card',
+                    'can' => 'admin',
+                ],
+            ],
         ],
         [
-            'text' => 'Registros de Altas',
-            'route'  => 'vista',
-            'icon' => 'fas fa-fw fa-address-card',
+            'text' => 'Agentes',
+            'icon' => 'fas fa-fw fa-user',
             'can' => 'admin',
-
+            'submenu' => [
+                [
+                    'text' => 'Registrar Agentes',
+                    'route' => 'users',
+                    'icon' => 'fas fa-fw fa-user-plus',
+                    'can' => 'admin',
+                ],
+                [
+                    'text' => 'Lista de Agentes',
+                    'route' => 'indes',
+                    'icon' => 'fas fa-fw fa-list',
+                    'can' => 'admin',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Folios',
+            'icon' => 'fas fa-fw fa-address-book',
+            'can' => 'admin',
+            'submenu' => [
+                [
+                    'text' => 'Dar de Alta Folio',
+                    'route' => 'alta.folio.form',
+                    'icon' => 'fas fa-fw fa-address-book',
+                    'can' => 'admin',
+                ],
+                [
+                    'text' => 'Lista de Folios',
+                    'route' => 'usuarios.con-folio.index',
+                    'icon' => 'fas fa-fw fa-list',
+                    'can' => 'admin',
+                ],
+            ],
         ],
 
-
-            [
-
-            'text' => 'Registrar Agentes',
-            'route'  => 'users',
-            'icon' => 'fas fa-fw fa-user-plus',
-            'can' => 'admin',
-
-            ],
-
-
-
-
-            [
-                'text' => 'Dar de Alta Folio',
-                'route'  => 'alta.folio.form',
-                'icon' => 'fas fa-fw fa-address-book',
-                'can' => 'admin',
-
-
-            ],
-
-            [
-                'text' => 'Lista de Agentes',
-                'route'  => 'indes',
-                'icon' => 'fas fa-fw fa-list',
-                'can' => 'admin',
-
-
-            ],
-            [
-                'text' => 'Lista de Folios',
-                'route'  => 'usuarios.con-folio.index',
-                'icon' => 'fas fa-fw fa-list',
-                'can' => 'admin',
-
-
-            ],
 
 
 

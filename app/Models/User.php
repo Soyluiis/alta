@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'folio', 'password', 'email','role', 'used_folio','fecha_vencimiento', 'folio_usos',
+        'name', 'folio', 'password', 'email','role', 'used_folio','fecha_vencimiento', 'folio_usos','capturador',
     ];
 
     /**
@@ -67,6 +67,9 @@ class User extends Authenticatable
     return $this->hasOne(AgenciaCarga::class, 'usuario_id', 'name');
 }
 
-
+public function createdBy()
+{
+    return $this->belongsTo(User::class, 'id');
+}
 
 }

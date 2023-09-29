@@ -35,6 +35,8 @@ class IngresarFolioController extends Controller
         // Establecer la hora, minutos y segundos a 23:59:59 (último segundo del día)
         $fechaVencimientoCarbon->setHour(23)->setMinute(59)->setSecond(59);
 
+        $capturador = Auth::user()->name;
+
         // Crear el usuario con el folio ingresado, fecha de vencimiento y asignar el rol "usuario"
         User::create([
             'folio' => $folio,
@@ -42,6 +44,7 @@ class IngresarFolioController extends Controller
             'password' => Hash::make($folio),
             'role' => 'usuario',
             'fecha_vencimiento' => $fechaVencimientoCarbon, // Almacenar la fecha de vencimiento ajustada
+            'capturador' => $capturador, // Asignar el valor del capturador
         ]);
 
         // Envía el folio al correo proporcionado

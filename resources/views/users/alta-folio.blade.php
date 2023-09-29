@@ -31,6 +31,14 @@
                 @csrf
 
                 <div class="form-group">
+                    <label for="capturador">Folio Generado por:  </label>
+                    <input type="text" name="capturador" id="capturador" class="form-control" value="{{ auth()->user()->name }}" readonly>
+
+                 </div>
+
+
+
+                <div class="form-group">
                     <label for="folio">Folio:</label>
                     <input type="text" name="folio" id="folio" class="form-control" required readonly>
                 </div>

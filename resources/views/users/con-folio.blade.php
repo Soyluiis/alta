@@ -7,7 +7,6 @@
     <div class="card-header">
         <h1 class="card-title">Usuarios con Folio Asignado</h1>
     </div>
-
     @if (session('success'))
         <div class="alert alert-success" role="success">
             {{ session('success') }}
@@ -26,7 +25,7 @@
                 <thead>
                     <tr>
                         <th>Folio</th>
-                        <th>Fecha de Creación</th>
+                        <th>Creado por</th>
                         <th>Fecha de Vencimiento</th>
 
                         <th>Usados</th>
@@ -37,7 +36,7 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->folio }}</td>
-                            <td>{{ $user->created_at }}</td>
+                            <td>{{ $user->capturador }}</td> <!-- Acceder al usuario creador -->
                             <td>{{ $user->fecha_vencimiento }}</td>
 
                             <td>
@@ -48,12 +47,6 @@
                                 @endif
                             </td>
                             <td class="text-right">
-                                {{-- <button class="btn-sm btn-info" type="button">
-                                    <i class="fas fa-fw fa-caret-down"></i>
-                                </button>
-                                <button class="btn-sm btn-warning" type="button">
-                                    <i class="fas fa-fw fa-pen"></i>
-                                </button> --}}
                                 <form action="{{ route('usuarios.destroy', $user->id) }}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')

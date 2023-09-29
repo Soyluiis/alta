@@ -26,13 +26,16 @@ class UserController extends Controller
     return view('users.con-folio', compact('users'));
 }
 
-    public function create()
-    {
-        // Obtener todos los roles para pasarlos a la vista
-        $roles = Role::all();
+public function create()
+{
+    // Obtener todos los roles para pasarlos a la vista
+    $roles = Role::all();
 
-        return view('users.create', compact('roles'));
-    }
+    return response()->view('users.create', compact('roles'))
+        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
+}
 
     public function store(Request $request)
     {
@@ -57,6 +60,8 @@ class UserController extends Controller
         $user->roles()->attach($role);
 
         return redirect()->route('indes')->with('success', 'Usuario Registrado Exitosamente.');
+
+
     }
 
     public function assignRole(Request $request, $userId)
@@ -97,15 +102,37 @@ class UserController extends Controller
 {
     $user = User::findOrFail($id);
 
+
     // Desvincular roles antes de eliminar
     $user->roles()->detach();
 
     $user->delete();
 
-    return redirect()->back()->with('error', 'Usuario eliminado exitosamente.');
+    return redirect()->back()->with('error', 'Folio eliminado exitosamente.');
 }
 
+public function ushow($id)
+{
+    $user=User::findOrFail($id);
+    return view ('users.ushow',compact('user'));
 
+}
+
+public function uedit($id)
+{
+    $user=User::findOrFail($id);
+    $roles = Role::all(); // Obtener todos los roles
+    return view ('users.uedit',compact('user', 'roles'));
+
+}
+
+public function update(Request $request, $id)
+{
+    $user = User::findOrFail($id);
+    $user->update($request->all());
+    return redirect()->route('indes')->with('success', 'Usuario Actualizado Exitosamente.');
+
+}
 
 
 

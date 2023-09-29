@@ -2,8 +2,6 @@
 
 @section('title', 'Lista de General de Usuarios y Folios')
 
-
-
 @section('content')
 <div class="card">
    <div class="card-header">
@@ -19,9 +17,6 @@
        {{session('error')}}
    </div>
    @endif
-  <div class="card-body">
-    <form action="#" method="POST">
-        @csrf
 
         <div class="card-header card-header-primary">
             <h4 class="card-title">Usuarios</h4>
@@ -52,6 +47,11 @@
                         <td>{{ $user->created_at }}</td>
                         <td>{{ $user->updated_at }}</td>
                         <td class= "text-right">
+
+
+                            <a href="{{route('ushow',$user->id)}}" class="btn btn-info"> <i class="fas fa-fw fa-eye"></i></a>
+                            <a href="{{route('uedit',$user->id)}}" class="btn btn-warning"> <i class="fas fa-fw fa-pen"></i></a>
+
 
                             <form action="{{ route('usuarios.destroy', $user->id) }}" method="POST" style="display: inline;">
                                 @csrf

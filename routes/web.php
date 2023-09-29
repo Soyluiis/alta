@@ -49,6 +49,9 @@ Route::get('/users', [App\Http\Controllers\UserController::class, 'indes'])->nam
 Route::post('users/{userId}/assign-role', [UserController::class, 'assignRole'])->name('users.assign-role');
 Route::get('/usuarios-con-folio', [App\Http\Controllers\UserController::class, 'usuariosConFolio'])->name('usuarios.con-folio.index');
 Route::delete('/usuarios/{id}',  [App\Http\Controllers\UserController::class, 'destroyfolio'])->name('usuarios.destroy');
+Route::get('/usuarios/{id}', [App\Http\Controllers\UserController::class, 'ushow'])->name('ushow');
+Route::get('/usuarios/{id}/edit', [App\Http\Controllers\UserController::class, 'uedit'])->name('uedit');
+Route::put('/usuarios/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
 
 
 });

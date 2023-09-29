@@ -385,12 +385,10 @@
 
                           </div>
                           @endcan
+
                           <div class="form-group float-right">
-                            <button type="submit" class="btn btn-primary" name="guardar" id="btnGuardar" disabled>Guardar</button>
-
-
-        {{--                             <button type="submit" class="btn btn-danger" name="enviar" id="btnEnviar" disabled>Enviar</button>
-        --}}                </div>
+                            <button type="submit" class="btn btn-primary" name="guardar" id="btnGuardar" >Guardar</button>
+                         </div>
             </form>
         </div>
 
@@ -398,7 +396,7 @@
 
         <script>
         // Función para verificar si todos los campos están llenos, excepto los campos excluidos
-        function verificarCamposLlenos() {
+        /* function verificarCamposLlenos() {
             const campos = document.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="password"]');
             for (const campo of campos) {
                 if (
@@ -411,16 +409,16 @@
                 }
             }
             return true;
-        }
+        } */
 
         // Agregar evento "input" a todos los campos para verificar cuando el usuario ingresa información
-        const camposInput = document.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="password"]');
+        /* const camposInput = document.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="password"]');
         for (const campo of camposInput) {
             campo.addEventListener('input', function () {
                 const btnEnviar = document.getElementById('btnGuardar');
                 btnEnviar.disabled = !verificarCamposLlenos();
             });
-        }
+        } */
 
         // Omitir la validación de campos exclusivos al enviar el formulario
         const formulario = document.getElementById('formulario'); // Cambia 'formulario' al ID correcto de tu formulario

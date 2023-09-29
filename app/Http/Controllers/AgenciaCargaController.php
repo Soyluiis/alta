@@ -211,11 +211,4 @@ public function destroy($id)
     return redirect()->route('vista')->with('error', 'Registro eliminado correctamente.');
 }
 
-
-
-
-
-
-
-
 }
